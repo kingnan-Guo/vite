@@ -68,10 +68,13 @@ app.use(async ctx => {
             console.log(script);
             ctx.type = 'application/javascript'
             ctx.body = `
-                ${reweiteImport(script)}
+                
                 //解析 template  vite 会把 对 template 的解析变成一次新的请求，单独解析
                 import { render as  __render } from '${url}?type=template'
+                ${reweiteImport(script)}
+                __script.render = __render
                 export default __script
+                
                 `
 
 
